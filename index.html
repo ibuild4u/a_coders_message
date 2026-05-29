@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Cheyenne</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0d0d;
+      --card: #141414;
+      --accent: #e8a0a0;
+      --text: #f0ece8;
+      --muted: #8a8078;
+      --glow: rgba(232, 160, 160, 0.15);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* particles */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      animation: drift linear infinite;
+    }
+
+    @keyframes drift {
+      0%   { opacity: 0; transform: translateY(0) scale(1); }
+      10%  { opacity: 0.4; }
+      90%  { opacity: 0.1; }
+      100% { opacity: 0; transform: translateY(-100vh) scale(0.3); }
+    }
+
+    /* scene wrapper */
+    #scene {
+      position: relative;
+      z-index: 1;
+      width: min(420px, 94vw);
+      padding: 2rem 1.5rem 2.5rem;
+      text-align: center;
+    }
+
+    /* slides */
+    .slide {
+      display: none;
+      animation: fadeUp 0.6s ease forwards;
+    }
+
+    .slide.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+    }
+
+    h1 {
+      font-size: clamp(1.6rem, 6vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #c4bdb6;
+      margin-bottom: 0.6rem;
+    }
+
+    .soft {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+
+    /* buttons */
+    .btn-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    button {
+      background: transparent;
+      border: 1px solid rgba(232, 160, 160, 0.3);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.4rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background 0.25s, border-color 0.25s, transform 0.15s;
+      line-height: 1.4;
+    }
+
+    button:hover, button:focus-visible {
+      background: var(--glow);
+      border-color: var(--accent);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    button:active { transform: translateY(0); }
+
+    button.primary {
+      background: var(--accent);
+      color: #1a0a0a;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+
+    button.primary:hover {
+      background: #f0b0b0;
+      border-color: #f0b0b0;
+    }
+
+    /* final heart */
+    .heart {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 1.2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.12); }
+    }
+
+    /* progress dots */
+    #dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 2.2rem;
+    }
+
+    .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--muted);
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .dot.on {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* divider */
+    .rule {
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.4;
+      margin: 1.4rem auto;
+    }
+  </style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div id="scene">
+
+  <!-- 0: opener -->
+  <div class="slide active" id="s0">
+    <div class="eyebrow">a message for you</div>
+    <h1>Hey <em>Cheyenne</em> —</h1>
+    <p>I made you something.<br>It won't take long. Just you and this screen.</p>
+    <div class="rule"></div>
+    <div class="btn-row">
+      <button class="primary" onclick="go(1)">I'm here →</button>
+    </div>
+  </div>
+
+  <!-- 1: question 1 -->
+  <div class="slide" id="s1">
+    <div class="eyebrow">question one</div>
+    <h1>Are you <em>beautiful</em>?</h1>
+    <div class="btn-row">
+      <button onclick="go(2)">Yes, I am</button>
+      <button onclick="go(2)">I think so</button>
+      <button onclick="go(2)">You tell me</button>
+    </div>
+  </div>
+
+  <!-- 2: answer 1 -->
+  <div class="slide" id="s2">
+    <div class="eyebrow">the answer</div>
+    <h1>You <em>are</em>.</h1>
+    <p>Not in a way that needs a question. Just — yes. You are.</p>
+    <div class="rule"></div>
+    <div class="btn-row">
+      <button onclick="go(3)">Keep going →</button>
+    </div>
+  </div>
+
+  <!-- 3: question 2 -->
+  <div class="slide" id="s3">
+    <div class="eyebrow">question two</div>
+    <h1>Do you ever wonder <em>why I do this</em>?</h1>
+    <p class="soft">The late nights. The screens. The building.</p>
+    <div class="btn-row">
+      <button onclick="go(4)">Sometimes, yeah</button>
+      <button onclick="go(4)">I already know why</button>
+      <button onclick="go(4)">Tell me</button>
+    </div>
+  </div>
+
+  <!-- 4: answer 2 -->
+  <div class="slide" id="s4">
+    <div class="eyebrow">the honest part</div>
+    <h1>Because <em>I give back</em> in time.</h1>
+    <p>I know the late nights on the MacBook, the builds that run past midnight — they ask something of you too.</p>
+    <p>You never make me feel bad for it. That means everything.</p>
+    <div class="rule"></div>
+    <div class="btn-row">
+      <button onclick="go(5)">I hear you →</button>
+    </div>
+  </div>
+
+  <!-- 5: question 3 -->
+  <div class="slide" id="s5">
+    <div class="eyebrow">question three</div>
+    <h1>Do you know how <em>rare</em> you are?</h1>
+    <div class="btn-row">
+      <button onclick="go(6)">Tell me</button>
+      <button onclick="go(6)">Maybe a little</button>
+      <button onclick="go(6)">I don't know</button>
+    </div>
+  </div>
+
+  <!-- 6: answer 3 -->
+  <div class="slide" id="s6">
+    <div class="eyebrow">what I see</div>
+    <h1>You <em>put up with me</em> —<br>and I love you for it.</h1>
+    <p>You let me build. You let me work. You let me be present in my own way.</p>
+    <p>And then I come back — and you're still there. That's not small. That's everything.</p>
+    <div class="rule"></div>
+    <div class="btn-row">
+      <button onclick="go(7)">One more →</button>
+    </div>
+  </div>
+
+  <!-- 7: last question -->
+  <div class="slide" id="s7">
+    <div class="eyebrow">last one</div>
+    <h1>Did you know I <em>built this for you</em>?</h1>
+    <p class="soft">Not a client. Not a project. Just you.</p>
+    <div class="btn-row">
+      <button onclick="go(8)">That's sweet</button>
+      <button onclick="go(8)">I love it</button>
+      <button onclick="go(8)">Yeah, I knew</button>
+    </div>
+  </div>
+
+  <!-- 8: final -->
+  <div class="slide" id="s8">
+    <span class="heart">♡</span>
+    <div class="eyebrow">from me to you</div>
+    <h1><em>Cheyenne</em> —</h1>
+    <p>You are beautiful. You are patient. You are my favorite person.</p>
+    <p>I built this because I could. And because I wanted you to feel something I sometimes can't say out loud.</p>
+    <div class="rule"></div>
+    <p>Thank you for being present with me.</p>
+    <p class="soft" style="margin-top: 1.2rem;">— with love, always</p>
+  </div>
+
+  <div id="dots"></div>
+
+</div>
+
+<script>
+  const total = 9;
+  let current = 0;
+
+  // build dots (skip answer slides from dot count — show 5 story beats)
+  const dotSlides = [0, 1, 3, 5, 7, 8];
+  const dotsEl = document.getElementById('dots');
+  dotSlides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' on' : '');
+    d.id = 'dot' + i;
+    dotsEl.appendChild(d);
+  });
+
+  function go(n) {
+    document.getElementById('s' + current).classList.remove('active');
+    current = n;
+    const next = document.getElementById('s' + current);
+    next.classList.remove('active');
+    void next.offsetWidth; // reflow to restart animation
+    next.classList.add('active');
+    updateDots();
+    window.scrollTo(0, 0);
+  }
+
+  function updateDots() {
+    dotSlides.forEach((slide, i) => {
+      const d = document.getElementById('dot' + i);
+      if (d) d.className = 'dot' + (slide <= current ? ' on' : '');
+    });
+  }
+
+  // particles
+  const canvas = document.getElementById('particles');
+  const count = 18;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.bottom = '-10px';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 12) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 3) + 'px';
+    p.style.opacity = '0';
+    canvas.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
