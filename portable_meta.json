@@ -5,11 +5,17 @@
   "processes": [
     {
       "name": "frontend",
-      "cmd": "npx",
-      "args": ["serve", "."],
+      "cmd": "node",
+      "args": [
+        "serve_static.js"
+      ],
       "port": "auto",
-      "ready_signal": "Accepting connections"
+      "ready_signal": "Server listening on port",
+      "env": {}
     }
   ],
-  "window": { "width": 1400, "height": 900 }
+  "window": {
+    "width": 1400,
+    "height": 900
+  }
 }
