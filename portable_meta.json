@@ -1,0 +1,21 @@
+{
+  "name": "A Coder's Message",
+  "version": "1.0.0",
+  "entry": "http://localhost:$SHELL_PORT_FRONTEND$",
+  "processes": [
+    {
+      "name": "frontend",
+      "cmd": "node",
+      "args": [
+        "serve_static.js"
+      ],
+      "port": "auto",
+      "ready_signal": "Server listening on port",
+      "env": {}
+    }
+  ],
+  "window": {
+    "width": 1400,
+    "height": 900
+  }
+}
