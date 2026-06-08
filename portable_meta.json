@@ -1,0 +1,15 @@
+{
+  "name": "A Coder's Message",
+  "version": "1.0.0",
+  "entry": "http://localhost:$SHELL_PORT_FRONTEND$",
+  "processes": [
+    {
+      "name": "frontend",
+      "cmd": "npx",
+      "args": ["serve", "."],
+      "port": "auto",
+      "ready_signal": "Accepting connections"
+    }
+  ],
+  "window": { "width": 1400, "height": 900 }
+}
